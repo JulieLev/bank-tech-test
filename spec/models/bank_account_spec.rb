@@ -6,7 +6,7 @@ describe BankAccount do
 
   describe '#initialize' do
     it 'has an initial balance of zero' do
-      expect(account.balance).to eq(0)
+      expect(account.show_balance).to eq(0)
     end
 
     it 'has a start date' do
@@ -18,7 +18,7 @@ describe BankAccount do
     it 'can record a deposit' do
       account.deposit(5)
       expect(account.transactions.length).to eq 1
-      expect(account.transactions[0]).to eq [Date.today, 5, 0, 5]
+      expect(account.show_balance).to eq 5
     end
   end
 
@@ -26,7 +26,15 @@ describe BankAccount do
     it 'can record a withdrawal' do
       account.withdraw(3)
       expect(account.transactions.length).to eq 1
-      expect(account.transactions[0]).to eq [Date.today, 0, 3, -3]
+      expect(account.show_balance).to eq -3
+    end
+  end
+
+  describe '#balance' do
+    it 'has a balance' do
+      account.deposit(5)
+      account.withdraw(3)
+      expect(account.show_balance).to eq 2
     end
   end
 

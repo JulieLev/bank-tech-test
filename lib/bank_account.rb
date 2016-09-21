@@ -3,7 +3,7 @@ require 'transaction'
 
 class BankAccount
 
-  attr_reader :balance, :date, :transactions
+  attr_reader :show_balance, :date, :transactions
 
   def initialize
     @balance = 0
@@ -23,15 +23,21 @@ class BankAccount
     add_transaction(date, @credit, 0)
   end
 
+  def show_balance
+    @balance
+  end
+
   def show_statement
     puts "date || credit || debit || balance"
+    total = 0
     n = 1
     while n <= @transactions.length
       @transactions.map do |transaction|
-        date = transaction[0].strftime("%d/%m/%Y")
-        credit = sprintf('%.2f', transaction[1].abs)
-        debit = sprintf('%.2f', transaction[2].abs)
-        balance = sprintf('%.2f', transaction[3])
+        date = transaction.date.strftime("%d/%m/%Y")
+        credit = sprintf('%.2f', transaction.credit.abs)
+        debit = sprintf('%.2f', transaction.debit.abs)
+        total += transaction.total
+        balance = sprintf('%.2f', total)
         puts "#{date} || #{credit} || #{debit} || #{balance}"
         n += 1
       end
@@ -50,8 +56,7 @@ private
 
   def add_transaction(date, credit, debit)
     transaction = Transaction.new(date: date, credit: credit, debit: debit)
-    new_transaction = [transaction.date, transaction.credit, transaction.debit, transaction.total]
-    @transactions << new_transaction
+    @transactions << transaction
   end
 
 end
