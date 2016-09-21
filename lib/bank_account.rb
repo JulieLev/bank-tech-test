@@ -10,23 +10,16 @@ class BankAccount
     @transactions = []
   end
 
-  def withdraw(amount)
-    @balance -=amount
+  def withdraw(amount, date=Date.today)
+    withdrawal_update_balance(amount)
     @debit = amount
-    date = Date.today
     add_transaction(date, 0, @debit, @balance)
   end
 
-  def deposit(amount)
-    @balance +=amount
+  def deposit(amount, date=Date.today)
+    deposit_update_balance(amount)
     @credit = amount
-    date = Date.today
     add_transaction(date, @credit, 0, @balance)
-  end
-
-  def add_transaction(date, credit, debit, balance)
-    transaction = [date, credit, debit, balance]
-    @transactions << transaction
   end
 
   def show_statement
@@ -43,4 +36,20 @@ class BankAccount
       end
     end
   end
+
+private
+
+  def deposit_update_balance(amount)
+    @balance += amount
+  end
+
+  def withdrawal_update_balance(amount)
+    @balance -= amount
+  end
+
+  def add_transaction(date, credit, debit, balance)
+    transaction = [date, credit, debit, balance]
+    @transactions << transaction
+  end
+
 end
