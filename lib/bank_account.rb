@@ -13,14 +13,12 @@ class BankAccount
 
   def withdraw(amount, date=Date.today)
     withdrawal_update_balance(amount)
-    @debit = amount
-    add_transaction(date, 0, @debit)
+    add_transaction(date, 0, amount)
   end
 
   def deposit(amount, date=Date.today)
     deposit_update_balance(amount)
-    @credit = amount
-    add_transaction(date, @credit, 0)
+    add_transaction(date, amount, 0)
   end
 
   def show_balance
