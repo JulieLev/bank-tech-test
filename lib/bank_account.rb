@@ -1,4 +1,5 @@
 require 'date'
+require 'transaction'
 
 class BankAccount
 
@@ -13,13 +14,13 @@ class BankAccount
   def withdraw(amount, date=Date.today)
     withdrawal_update_balance(amount)
     @debit = amount
-    add_transaction(date, 0, @debit, @balance)
+    add_transaction(date, 0, @debit)
   end
 
   def deposit(amount, date=Date.today)
     deposit_update_balance(amount)
     @credit = amount
-    add_transaction(date, @credit, 0, @balance)
+    add_transaction(date, @credit, 0)
   end
 
   def show_statement
@@ -47,9 +48,10 @@ private
     @balance -= amount
   end
 
-  def add_transaction(date, credit, debit, balance)
-    transaction = [date, credit, debit, balance]
-    @transactions << transaction
+  def add_transaction(date, credit, debit)
+    transaction = Transaction.new(date: date, credit: credit, debit: debit)
+    new_transaction = [transaction.date, transaction.credit, transaction.debit, transaction.total]
+    @transactions << new_transaction
   end
 
 end

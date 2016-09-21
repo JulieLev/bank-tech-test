@@ -5,10 +5,8 @@ describe Transaction do
   subject(:transaction) { Transaction.new }
   subject(:credit_transaction) { Transaction.new(credit: 200) }
   subject(:debit_transaction) { Transaction.new(debit: 100) }
-  subject(:dated_transaction) { Transaction.new(credit: 20, date: different_date)}
 
   today = Date.new(2016, 9, 21)
-  different_date = Date.new(2016, 9, 1)
 
   describe '#initialize' do
     it 'has an initial credit value of zero' do
@@ -22,6 +20,10 @@ describe Transaction do
     it 'has an default date value of today' do
       allow(Date).to receive(:today).and_return(Date.new(2016, 9, 21))
       expect(transaction.date).to eq today
+    end
+
+    it 'has an initial total value of zero' do
+      expect(transaction.total).to eq 0
     end
   end
 
@@ -40,9 +42,19 @@ describe Transaction do
   end
 
   describe '#date' do
+    different_date = Date.new(2016, 9, 1)
+    subject(:dated_transaction) { Transaction.new(credit: 20, date: different_date)}
+
     it 'can accept a different date' do
       expect(dated_transaction.date).to eq different_date
       expect(dated_transaction.date).not_to eq today
+    end
+  end
+
+  describe '#total' do
+    it 'has a total value' do
+      expect(credit_transaction.total).to eq 200
+      expect(debit_transaction.total).to eq -100
     end
   end
 end
