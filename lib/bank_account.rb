@@ -1,5 +1,5 @@
 require 'date'
-require 'transaction'
+require_relative 'transaction'
 
 class BankAccount
 
@@ -23,23 +23,6 @@ class BankAccount
 
   def show_balance
     @balance
-  end
-
-  def show_statement
-    puts "date || credit || debit || balance"
-    total = 0
-    n = 1
-    while n <= @transactions.length
-      @transactions.map do |transaction|
-        date = transaction.date.strftime("%d/%m/%Y")
-        credit = sprintf('%.2f', transaction.credit.abs)
-        debit = sprintf('%.2f', transaction.debit.abs)
-        total += transaction.total
-        balance = sprintf('%.2f', total)
-        puts "#{date} || #{credit} || #{debit} || #{balance}"
-        n += 1
-      end
-    end
   end
 
 private
