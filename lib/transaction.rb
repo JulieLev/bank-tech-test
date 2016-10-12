@@ -1,3 +1,5 @@
+require 'date'
+
 class Transaction
 attr_reader :debit, :credit, :date, :total
 
