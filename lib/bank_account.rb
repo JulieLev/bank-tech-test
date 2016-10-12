@@ -13,7 +13,7 @@ class BankAccount
 
   def withdraw(amount, date=Date.today)
     withdrawal_update_balance(amount)
-    add_transaction(date, 0, amount)
+    add_transaction('debit', amount, date)
   end
 
   def deposit(amount, date=Date.today)
@@ -26,7 +26,6 @@ class BankAccount
   end
 
 private
-
   def deposit_update_balance(amount)
     @balance += amount
   end
@@ -35,8 +34,8 @@ private
     @balance -= amount
   end
 
-  def add_transaction(date, credit, debit)
-    transaction = Transaction.new(date: date, credit: credit, debit: debit)
+  def add_transaction(type, amount, date)
+    transaction = Transaction.new(type: type, amount: amount, date: date)
     @transactions << transaction
   end
 
