@@ -15,4 +15,12 @@ describe 'Statement' do
 14/01/2012 || 0.00 || 500.00 || 500.00\n").to_stdout
     end
   end
+
+  describe '#show_deposits' do
+    it "should print only deposits when run" do
+      allow(statement.account).to receive(:transactions).and_return([transaction_1, transaction_2])
+      expect { statement.show_deposits }.to output("date || credit
+10/01/2012 || 1000.00\n").to_stdout
+    end
+  end
 end
