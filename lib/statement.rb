@@ -4,7 +4,7 @@ require_relative 'transaction'
 
 class Statement
 
-  attr_reader :account, :deposits_or_withdrawals
+  attr_reader :account
 
   def initialize(account)
     @account = account
@@ -38,7 +38,7 @@ class Statement
       account.transactions.map do |transaction|
         date = format_date(transaction.date)
         case transaction.type
-        when 'credit'
+          when 'credit'
             credit = format_amount(transaction.amount.abs)
             debit = format_amount(0)
           when 'debit'
@@ -73,8 +73,8 @@ class Statement
           amount = format_amount(transaction.amount.abs)
           puts "#{date} || #{amount}"
         end
-      end
       n += 1
+      end
     end
   end
 end

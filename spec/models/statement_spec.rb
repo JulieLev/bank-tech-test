@@ -3,12 +3,12 @@ require 'date'
 
 describe 'Statement' do
   let(:account) { double :bank_account }
-  let(:transaction_1) { double :transaction, type: 'credit', amount: 1000, date: Date.new(2012, 01, 10), total: 1000 }
-  let(:transaction_2) { double :transaction, type: 'debit', amount: 500, date: Date.new(2012, 01, 14), total: -500 }
+  let(:credit_transaction_1) { double :transaction, type: 'credit', amount: 1000, date: Date.new(2012, 01, 10), total: 1000 }
+  let(:debit_transaction_1) { double :transaction, type: 'debit', amount: 500, date: Date.new(2012, 01, 14), total: -500 }
   subject(:statement) { Statement.new(account) }
 
   before do
-    allow(statement.account).to receive(:transactions).and_return([transaction_1, transaction_2])
+    allow(statement.account).to receive(:transactions).and_return([credit_transaction_1, debit_transaction_1])
   end
 
   describe '#show_statement' do
