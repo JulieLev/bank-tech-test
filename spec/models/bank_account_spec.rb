@@ -17,7 +17,7 @@ describe BankAccount do
   describe '#deposit' do
     it 'can record a deposit' do
       account.deposit(5)
-      expect(account.transactions.length).to eq 1
+      expect(account.read_transactions.length).to eq 1
       expect(account.show_balance).to eq 5
     end
   end
@@ -25,7 +25,7 @@ describe BankAccount do
   describe '#withdraw' do
     it 'can record a withdrawal' do
       account.withdraw(3)
-      expect(account.transactions.length).to eq 1
+      expect(account.read_transactions.length).to eq 1
       expect(account.show_balance).to eq -3
     end
   end

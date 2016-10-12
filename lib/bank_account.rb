@@ -3,7 +3,7 @@ require_relative 'transaction'
 
 class BankAccount
 
-  attr_reader :show_balance, :date, :transactions
+  attr_reader :show_balance, :date, :read_transactions
 
   def initialize
     @balance = 0
@@ -23,6 +23,10 @@ class BankAccount
 
   def show_balance
     @balance
+  end
+
+  def read_transactions
+    @transactions
   end
 
 private

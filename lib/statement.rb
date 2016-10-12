@@ -34,8 +34,8 @@ class Statement
     puts statement_header
     total = 0
     n = 1
-    while n <= account.transactions.length
-      account.transactions.map do |transaction|
+    while n <= account.read_transactions.length
+      account.read_transactions.map do |transaction|
         date = format_date(transaction.date)
         case transaction.type
           when 'credit'
@@ -66,8 +66,8 @@ class Statement
   def show_selected(choice)
     total = 0
     n = 1
-    while n <= account.transactions.length
-      account.transactions.map do |transaction|
+    while n <= account.read_transactions.length
+      account.read_transactions.map do |transaction|
         if transaction.type == choice
           date = format_date(transaction.date)
           amount = format_amount(transaction.amount.abs)

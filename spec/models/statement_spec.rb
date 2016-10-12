@@ -8,7 +8,7 @@ describe 'Statement' do
   subject(:statement) { Statement.new(account) }
 
   before do
-    allow(statement.account).to receive(:transactions).and_return([credit_transaction_1, debit_transaction_1])
+    allow(statement.account).to receive(:read_transactions).and_return([credit_transaction_1, debit_transaction_1])
   end
 
   describe '#show_statement' do
