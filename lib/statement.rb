@@ -18,6 +18,10 @@ class Statement
     "date || credit"
   end
 
+  def withdrawals_header
+    "date || debit"
+  end
+
   def format_date(date)
     date.strftime("%d/%m/%Y")
   end
@@ -53,6 +57,22 @@ class Statement
           date = format_date(transaction.date)
           credit = format_amount(transaction.credit.abs)
           puts "#{date} || #{credit}"
+        end
+        n += 1
+      end
+    end
+  end
+
+  def show_withdrawals
+    puts withdrawals_header
+    total = 0
+    n = 1
+    while n <= account.transactions.length
+      account.transactions.map do |transaction|
+        if transaction.debit > 0
+          date = format_date(transaction.date)
+          debit = format_amount(transaction.debit.abs)
+          puts "#{date} || #{debit}"
         end
         n += 1
       end
