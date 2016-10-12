@@ -18,7 +18,7 @@ class BankAccount
 
   def deposit(amount, date=Date.today)
     deposit_update_balance(amount)
-    add_transaction(date, amount, 0)
+    add_transaction('credit', amount, date)
   end
 
   def show_balance

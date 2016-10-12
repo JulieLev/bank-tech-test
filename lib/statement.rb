@@ -4,7 +4,7 @@ require_relative 'transaction'
 
 class Statement
 
-  attr_reader :account
+  attr_reader :account, :deposits_or_withdrawals
 
   def initialize(account)
     @account = account
@@ -37,8 +37,14 @@ class Statement
     while n <= account.transactions.length
       account.transactions.map do |transaction|
         date = format_date(transaction.date)
-        credit = format_amount(transaction.credit.abs)
-        debit = format_amount(transaction.debit.abs)
+        case transaction.type
+        when 'credit'
+            credit = format_amount(transaction.amount.abs)
+            debit = format_amount(0)
+          when 'debit'
+            credit = format_amount(0)
+            debit = format_amount(transaction.amount.abs)
+        end
         total += transaction.total
         balance = format_amount(total)
         puts "#{date} || #{credit} || #{debit} || #{balance}"
@@ -47,27 +53,28 @@ class Statement
     end
   end
 
-  def show_deposits_or_withdrawals(choice) # choice = 'credit' or 'debit'
-    case choice
-      when 'deposits'
-        puts deposits_header
-        filter = 'credit'
-      when 'withdrawals'
-        puts withdrawals_header
-        filter = 'debit'
-    end
+  def show_deposits
+    puts deposits_header
+    show_selected('credit')
+  end
 
+  def show_withdrawals
+    puts withdrawals_header
+    show_selected('debit')
+  end
+
+  def show_selected(choice)
     total = 0
     n = 1
     while n <= account.transactions.length
       account.transactions.map do |transaction|
-        if transaction.filter > 0
+        if transaction.type == choice
           date = format_date(transaction.date)
-          amount = format_amount(filter)
+          amount = format_amount(transaction.amount.abs)
           puts "#{date} || #{amount}"
         end
-        n += 1
       end
+      n += 1
     end
   end
 end
