@@ -47,32 +47,24 @@ class Statement
     end
   end
 
-  def show_deposits
-    puts deposits_header
-    total = 0
-    n = 1
-    while n <= account.transactions.length
-      account.transactions.map do |transaction|
-        if transaction.credit > 0
-          date = format_date(transaction.date)
-          credit = format_amount(transaction.credit.abs)
-          puts "#{date} || #{credit}"
-        end
-        n += 1
-      end
+  def show_deposits_or_withdrawals(choice) # choice = 'credit' or 'debit'
+    case choice
+      when 'deposits'
+        puts deposits_header
+        filter = 'credit'
+      when 'withdrawals'
+        puts withdrawals_header
+        filter = 'debit'
     end
-  end
 
-  def show_withdrawals
-    puts withdrawals_header
     total = 0
     n = 1
     while n <= account.transactions.length
       account.transactions.map do |transaction|
-        if transaction.debit > 0
+        if transaction.filter > 0
           date = format_date(transaction.date)
-          debit = format_amount(transaction.debit.abs)
-          puts "#{date} || #{debit}"
+          amount = format_amount(filter)
+          puts "#{date} || #{amount}"
         end
         n += 1
       end

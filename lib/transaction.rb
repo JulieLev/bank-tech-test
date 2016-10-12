@@ -1,15 +1,15 @@
 require 'date'
 
 class Transaction
-attr_reader :debit, :credit, :date, :total
+attr_reader :type, :amount, :date, :total
 
-  def initialize(debit: 0, credit: 0, date: Date.today)
-    @debit = debit
-    @credit = credit
+  def initialize(type: 'invalid', amount: 0, date: Date.today)
+    @type = type
+    @amount = amount
     @date = date
   end
 
   def total
-    credit - debit
+    @type == 'credit' ? amount : -amount
   end
 end

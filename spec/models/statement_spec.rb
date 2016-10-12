@@ -7,27 +7,28 @@ describe 'Statement' do
   let(:transaction_2) { double :transaction, credit: 0, debit: 500, date: Date.new(2012, 01, 14), total: -500 }
   subject(:statement) { Statement.new(account) }
 
+  before do
+    allow(statement.account).to receive(:transactions).and_return([transaction_1, transaction_2])
+  end
+
   describe '#show_statement' do
     it "should print a simple statement when run" do
-      allow(statement.account).to receive(:transactions).and_return([transaction_1, transaction_2])
       expect { statement.show_statement }.to output("date || credit || debit || balance
 10/01/2012 || 1000.00 || 0.00 || 1000.00
 14/01/2012 || 0.00 || 500.00 || 500.00\n").to_stdout
     end
   end
 
-  describe '#show_deposits' do
+  describe "#show_deposits_or_withdrawals('deposits')" do
     it "should print only deposits when run" do
-      allow(statement.account).to receive(:transactions).and_return([transaction_1, transaction_2])
-      expect { statement.show_deposits }.to output("date || credit
+      expect { statement.show_deposits_or_withdrawals('deposits') }.to output("date || credit
 10/01/2012 || 1000.00\n").to_stdout
     end
   end
 
-  describe '#show_withdrawals' do
+  describe "#show_deposits_or_withdrawals('withdrawals')" do
     it "should print only withdrawals when run" do
-      allow(statement.account).to receive(:transactions).and_return([transaction_1, transaction_2])
-      expect { statement.show_withdrawals }.to output("date || debit
+      expect { statement.show_deposits_or_withdrawals('withdrawals') }.to output("date || debit
 14/01/2012 || 500.00\n").to_stdout
     end
   end
