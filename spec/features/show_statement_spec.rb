@@ -3,12 +3,12 @@ require 'bank_account'
 require 'statement'
 require 'date'
 
-describe 'show complete statement' do
-  account = BankAccount.new
-  date = Date.new(2016, 10, 30)
-  date_2 = Date.new(2016, 10, 31)
-  date_3 = Date.new(2016, 11, 1)
-  statement = Statement.new(account)
+  describe 'show statements' do
+    account = BankAccount.new
+    date = Date.new(2016, 10, 30)
+    date_2 = Date.new(2016, 10, 31)
+    date_3 = Date.new(2016, 11, 1)
+    statement = Statement.new(account)
 
   context 'user makes a deposit of 1000' do
     it 'should display a one line statement with correct details and balance' do

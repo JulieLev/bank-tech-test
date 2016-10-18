@@ -42,5 +42,4 @@ private
     transaction = Transaction.new(type: type, amount: amount, date: date)
     @transactions << transaction
   end
-
 end
