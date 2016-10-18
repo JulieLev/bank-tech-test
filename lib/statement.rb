@@ -10,6 +10,23 @@ class Statement
     @account = account
   end
 
+  def show_statement
+    puts statement_header
+    show_all
+  end
+
+  def show_deposits
+    puts deposits_header
+    show_selected('credit')
+  end
+
+  def show_withdrawals
+    puts withdrawals_header
+    show_selected('debit')
+  end
+
+private
+
   def statement_header
     "date || credit || debit || balance"
   end
@@ -30,8 +47,7 @@ class Statement
     sprintf('%.2f', amount)
   end
 
-  def show_statement
-    puts statement_header
+  def show_all
     total = 0
     n = 1
     while n <= account.read_transactions.length
@@ -53,17 +69,7 @@ class Statement
     end
   end
 
-  def show_deposits
-    puts deposits_header
-    show_selected('credit')
-  end
-
-  def show_withdrawals
-    puts withdrawals_header
-    show_selected('debit')
-  end
-
-  def show_selected(choice)
+  def show_selected(choice) # choice is 'debit' or 'credit'
     total = 0
     n = 1
     while n <= account.read_transactions.length
@@ -77,4 +83,4 @@ class Statement
       end
     end
   end
-end
+end #end class
