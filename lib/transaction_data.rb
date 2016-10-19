@@ -1,9 +1,9 @@
+# Not implemented - need to rethink!
+
 require 'transaction'
 require 'date'
 
-class StatementData
-
-  attr_reader :transaction # only required for test?
+class TransactionData
 
   def initialize(transaction)
     @transaction = transaction
@@ -17,4 +17,7 @@ class StatementData
     output = [date, credit, debit, total]
     output
   end
+
+private
+  attr_reader :transaction
 end

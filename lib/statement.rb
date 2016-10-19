@@ -69,6 +69,21 @@ private
     end
   end
 
+  def show_all_new
+    total = 0
+    n = 1
+    while n <= account.read_transactions.length
+      account.read_transactions.map do |transaction|
+        data = TransactionData(transaction)
+        data.output
+        total += transaction.total
+        balance = format_amount(total)
+        puts "#{date} || #{credit} || #{debit} || #{balance}"
+        n += 1
+      end
+    end
+  end
+
   def show_selected(choice) # choice is 'debit' or 'credit'
     total = 0
     n = 1

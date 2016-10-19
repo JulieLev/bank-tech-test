@@ -1,5 +1,6 @@
 # The Bank Tech Test
-Makers Academy - practice tech test
+Makers Academy - practice tech test.
+*Current version works, refactoring to be improved*
 
 ### Requirements
 * Deposits, withdrawal
